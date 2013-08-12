@@ -37,39 +37,5 @@ module NoaaClient
         end
       end
     end
-
-    class Station
-      def initialize(attributes = {})
-        @attributes = attributes
-      end
-
-      def station_id
-        attributes.fetch('station_id')
-      end
-
-      def name
-        attributes.fetch('station_name')
-      end
-
-      def state
-        attributes.fetch('state')
-      end
-
-      def latitude
-        attributes.fetch('latitude').to_f
-      end
-
-      def longitude
-        attributes.fetch('longitude').to_f
-      end
-
-      def xml_url
-        attributes.fetch('xml_url')
-      end
-
-      private
-
-      attr_reader :attributes
-    end
   end
 end
