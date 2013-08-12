@@ -1,0 +1,20 @@
+!!!
+%html
+  %body
+    %ul
+      - @forecast.each do |f|
+        %li
+          %table
+            %tr
+              %td Day
+              %td= f.start_time.ctime
+            %tr
+              %td High
+              %td= f.high_temp
+            %tr
+              %td Low
+              %td= f.low_temp
+            %tr
+              %td Weather Summary
+              %td= f.weather_summary
+
