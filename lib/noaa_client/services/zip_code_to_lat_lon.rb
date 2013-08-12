@@ -4,7 +4,7 @@ require_relative '../xml_parser_factory'
 
 module NoaaClient
   module Services
-    class ResolvesZipCodeToLatLon
+    class ZipCodeToLatLon
       def initialize(zip, options = {})
         @zip = zip
         @options = options
