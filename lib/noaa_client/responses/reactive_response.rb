@@ -1,26 +1,6 @@
-require_relative 'reactive_response'
-
 module NoaaClient
   module Responses
-    class Station
-      include ReactiveResponse
-
-      def initialize(station)
-        @source = station
-      end
-
-      def latitude
-        source.css('latitude').text.to_f
-      end
-
-      def longitude
-        source.css('longitude').text.to_f
-      end
-
-      private
-
-      attr_reader :source
-
+    module ReactiveResponse
       def method_missing(method_name, *arguments, &block)
         if tag = source.css(method_name.to_s)
           tag.text
@@ -31,6 +11,10 @@ module NoaaClient
 
       def respond_to_missing?(method_name, include_private = false)
         source.css(method_name.to_s) || super
+      end
+
+      def source
+        @source
       end
     end
   end

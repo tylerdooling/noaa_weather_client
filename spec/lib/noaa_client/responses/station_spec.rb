@@ -1,20 +1,25 @@
+require 'nokogiri'
 require_relative '../../../spec_helper'
 require_relative '../../../../lib/noaa_client/responses/station'
 
 module NoaaClient
   module Responses
     describe Station do
-      let(:attributes) { {
-        "station_id" => 'TAPA',
-        "state" => 'AG',
-        "station_name" => 'Vc Bird Intl Airport Antigua',
-        "latitude" => '17.117',
-        "longitude" => '-61.783',
-        "html_url" => 'http://weather.noaa.gov/weather/current/TAPA.html',
-        "rss_url" => 'http://weather.gov/xml/current_obs/TAPA.rss',
-        "xml_url" => 'http://weather.gov/xml/current_obs/TAPA.xml'
-      }}
-      let(:station) { Station.new attributes }
+      let(:source) {
+        <<-xml
+  <station>
+    <station_id>TAPA</station_id>
+    <state>AG</state>
+    <station_name>Vc Bird Intl Airport Antigua</station_name>
+    <latitude>17.117</latitude>
+    <longitude>-61.783</longitude>
+    <html_url>http://weather.noaa.gov/weather/current/TAPA.html</html_url>
+    <rss_url>http://weather.gov/xml/current_obs/TAPA.rss</rss_url>
+    <xml_url>http://weather.gov/xml/current_obs/TAPA.xml</xml_url>
+  </station>
+        xml
+      }
+      let(:station) { Station.new Nokogiri::XML.parse(source) }
 
       it "accepts an attributes hash" do
         station

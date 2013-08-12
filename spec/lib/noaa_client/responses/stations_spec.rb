@@ -1,3 +1,4 @@
+require 'nokogiri'
 require_relative '../../../spec_helper'
 require_relative '../../../../lib/noaa_client/responses/stations'
 
@@ -17,21 +18,17 @@ module NoaaClient
         expect { stations.each { |d| count += 1 } }.to change { count }.by(2)
       end
 
-      it "passes station attributes to the station class" do
+      it "passes station xml to the station class" do
         mock_station_class = double(new: nil)
-        expect(mock_station_class).to receive(:new).with(
-          "station_id" => 'TAPA',
-          "state" => 'AG',
-          "station_name" => 'Vc Bird Intl Airport Antigua',
-          "latitude" => '17.117',
-          "longitude" => '-61.783',
-          "html_url" => 'http://weather.noaa.gov/weather/current/TAPA.html',
-          "rss_url" => 'http://weather.gov/xml/current_obs/TAPA.rss',
-          "xml_url" => 'http://weather.gov/xml/current_obs/TAPA.xml'
-        )
+        first, last = Nokogiri::XML.parse(fake_response).css('station')
+        expect(mock_station_class).to receive(:new).with { |station|
+          station.to_xml == first.to_xml
+        }
+        expect(mock_station_class).to receive(:new).with { |station|
+          station.to_xml == last.to_xml
+        }
         Stations.new(fake_response, station_class: mock_station_class).each { |s| }
       end
-
 
       STATIONS_XML =<<-RESPONSE
 <?xml version="1.0" encoding="UTF-8"?>

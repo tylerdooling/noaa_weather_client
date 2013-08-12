@@ -21,20 +21,12 @@ module NoaaClient
 
       def stations
         @stations ||= body.css('station').map do |station|
-          station_class.new map_station_attributes(station)
+          station_class.new station
         end
       end
 
       def station_class
         options.fetch(:station_class, Station)
-      end
-
-      def map_station_attributes(station)
-        {}.tap do |h|
-          station.element_children.each do |c|
-            h.store c.name, c.text
-          end
-        end
       end
     end
   end
