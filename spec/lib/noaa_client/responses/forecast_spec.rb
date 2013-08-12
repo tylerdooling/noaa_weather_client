@@ -4,7 +4,7 @@ require_relative '../../../../lib/noaa_client/responses/forecast'
 module NoaaClient
   module Responses
     describe Forecast do
-      let(:fake_response) { { ndf_dgen_by_day_response: { dwml_by_day_out: XML } } }
+      let(:fake_response) { { ndf_dgen_by_day_response: { dwml_by_day_out: FORECAST_XML } } }
       let(:forecast) { Forecast.new fake_response }
 
       it "requires a response" do
@@ -25,7 +25,7 @@ module NoaaClient
         forecast.tomorrow
       end
 
-      XML =<<-RESPONSE
+      FORECAST_XML =<<-RESPONSE
 <?xml version="1.0"?>
 <dwml version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://graphical.weather.gov/xml/DWMLgen/schema/DWML.xsd">
   <head>

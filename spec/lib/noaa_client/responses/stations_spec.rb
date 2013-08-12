@@ -4,7 +4,7 @@ require_relative '../../../../lib/noaa_client/responses/stations'
 module NoaaClient
   module Responses
     describe Stations do
-      let(:fake_response) { XML }
+      let(:fake_response) { STATIONS_XML }
       let(:stations) { Stations.new fake_response }
 
       it "requires a response" do
@@ -29,11 +29,11 @@ module NoaaClient
           "rss_url" => 'http://weather.gov/xml/current_obs/TAPA.rss',
           "xml_url" => 'http://weather.gov/xml/current_obs/TAPA.xml'
         )
-        Stations.new(fake_response, station_class: mock_station_class).map &:to_s
+        Stations.new(fake_response, station_class: mock_station_class).each { |s| }
       end
 
 
-      XML =<<-RESPONSE
+      STATIONS_XML =<<-RESPONSE
 <?xml version="1.0" encoding="UTF-8"?>
 <wx_station_index>
   <credit>NOAA's National Weather Service</credit>
