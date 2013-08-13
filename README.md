@@ -1,6 +1,6 @@
 # NoaaClient
 
-TODO: Write a gem description
+Ruby wrapper for the noaa weather api.
 
 ## Installation
 
@@ -18,12 +18,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+client = NoaaClient.build_client
 
-## Contributing
+# convert zip to lat/lon
+coordinate = client.zip_code_to_lat_lon(90210)
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+# 7 day forecast
+client.forecast_by_day(coordinate.latitude, coordinate.longitude)
+
+# nearest_weather_station
+client.nearest_weather_station(coordinate.latitude, coordinate.longitude)
+
+# all weather stations
+client.nearest_weather_station(coordinate.latitude, coordinate.longitude)
+
+# current observations
+client.current_observations(coordinate.latitude, coordinate.longitude)
+```
