@@ -39,7 +39,6 @@ module NoaaClient
           options[:response_class] = :some_response_class
           expect(options[:rest_service]).to receive(:object_from_response)
             .with(anything, anything, hash_including(response_class: options[:response_class]))
-
           current_observations.fetch mock_station
         end
       end

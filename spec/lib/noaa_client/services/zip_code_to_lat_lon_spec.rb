@@ -4,16 +4,36 @@ require_relative '../../../../lib/noaa_client/services/zip_code_to_lat_lon'
 module NoaaClient
   module Services
     describe ZipCodeToLatLon do
-      it "requires a zip code" do
-        ZipCodeToLatLon.new 65804
-        expect { ZipCodeToLatLon.new }.to raise_error(ArgumentError)
+      it "accepts an options hash" do
+        ZipCodeToLatLon.new {}
       end
 
-      it "creates a coordinate with the lat and lon in the response" do
-        VCR.use_cassette(:zip_to_lat_lon) do
-          mock_coordinate_class = double
-          expect(mock_coordinate_class).to receive(:new).with(37.1962, -93.2861)
-          ZipCodeToLatLon.new(65804, coordinate_class: mock_coordinate_class).resolve
+      context "#convert" do
+        let(:options) { { soap_service: double(object_from_response: nil) } }
+        let(:zip) { 90210 }
+        let(:zip_lat_lon) { ZipCodeToLatLon.new options }
+
+        it "accepts an options hash" do
+          zip_lat_lon.convert options
+        end
+
+        it "passes ndf_dgen_by_day to the service" do
+          expect(options[:soap_service]).to receive(:object_from_response)
+          .with(:lat_lon_list_zip_code, anything, anything)
+          zip_lat_lon.convert zip
+        end
+
+        it "passes zip as string to the service" do
+          expect(options[:soap_service]).to receive(:object_from_response)
+            .with(anything, hash_including('zipCodeList' => zip.to_s), anything)
+          zip_lat_lon.convert zip
+        end
+
+        it "passes an optional response class to the service" do
+          options[:response_class] = :some_response_class
+          expect(options[:soap_service]).to receive(:object_from_response)
+            .with(anything, anything, hash_including(response_class: options[:response_class]))
+          zip_lat_lon.convert zip
         end
       end
     end
