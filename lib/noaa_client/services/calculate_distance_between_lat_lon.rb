@@ -1,6 +1,6 @@
 module NoaaClient
   module Services
-    module CalculatesDistanceBetweenLatLon
+    module CalculateDistanceBetweenLatLon
       extend Math
 
       def self.get_distance(lat1, lon1, lat2, lon2)
