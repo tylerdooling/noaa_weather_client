@@ -15,7 +15,7 @@ module NoaaClient
     end
 
     def current_observations(lat, lon, options = {})
-      station = nearest_weather_station(lat, lon, options)
+      station = options.fetch(:station, nearest_weather_station(lat, lon, options))
       Services::CurrentObservations.new(options).fetch(station)
     end
 
