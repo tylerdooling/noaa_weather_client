@@ -1,5 +1,4 @@
 require_relative 'rest_service'
-require_relative '../xml_parser_factory'
 require_relative '../responses/current_observation'
 
 module NoaaClient

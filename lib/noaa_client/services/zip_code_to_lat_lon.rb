@@ -1,10 +1,11 @@
-require_relative '../soap_client_factory'
-require_relative '../xml_parser_factory'
+require_relative 'soap_service'
 require_relative '../responses/lat_lon_list'
 
 module NoaaClient
   module Services
     class ZipCodeToLatLon
+      include SoapService
+
       def initialize(options = {})
         @options = options
       end

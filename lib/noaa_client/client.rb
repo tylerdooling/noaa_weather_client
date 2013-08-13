@@ -2,6 +2,7 @@ require_relative 'services/forecast_by_day'
 require_relative 'services/weather_stations'
 require_relative 'services/current_observations'
 require_relative 'services/find_nearest_station'
+require_relative 'services/zip_code_to_lat_lon'
 
 module NoaaClient
   class Client
@@ -21,6 +22,10 @@ module NoaaClient
     def nearest_weather_station(lat, lon, options = {})
       stations = options.fetch(:stations, weather_stations)
       Services::FindNearestStation.find(lat, lon, stations)
+    end
+
+    def zip_code_to_lat_lon(zip, options = {})
+      Services::ZipCodeToLatLon.new(options).convert(zip)
     end
 
     private

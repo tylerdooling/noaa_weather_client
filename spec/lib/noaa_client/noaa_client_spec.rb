@@ -1,5 +1,5 @@
-require_relative '../spec_helper'
-require_relative '../../lib/noaa_client/client'
+require_relative '../../spec_helper'
+require_relative '../../../lib/noaa_client/client'
 
 module NoaaClient
   describe Client do
@@ -55,6 +55,15 @@ module NoaaClient
       it "fetches the station nearest the coordinates" do
         VCR.use_cassette(:nearest_weather_station) do
           expect(client.nearest_weather_station(37.1962, -93.2861).station_id).to eq('KSGF')
+        end
+      end
+    end
+
+    context "#zip_code_to_lat_lon" do
+      it "converts a zip code to coordinate" do
+        VCR.use_cassette(:zip_code_to_lat_lon) do
+          expect(client.zip_code_to_lat_lon(65804).latitude).to eq(37.1962)
+          expect(client.zip_code_to_lat_lon(65804).longitude).to eq(-93.2861)
         end
       end
     end

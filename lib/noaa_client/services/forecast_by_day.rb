@@ -1,5 +1,4 @@
 require_relative 'soap_service'
-require_relative '../xml_parser_factory'
 require_relative '../responses/forecast'
 
 module NoaaClient
