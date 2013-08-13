@@ -18,7 +18,6 @@ module NoaaClient
     def build_request_for_action(action, url, options = {})
       r_class = case action
                 when :get then Net::HTTP::Get
-                when :post then Net::HTTP::Post
                 end
       r_class.new url
     end
