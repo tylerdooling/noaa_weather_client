@@ -30,6 +30,18 @@ module NoaaClient
         Stations.new(fake_response, station_class: mock_station_class).each { |s| }
       end
 
+      it "allows fetching of stations via array#fetch" do
+        expect(stations.fetch(0).station_id).to eq('TAPA')
+      end
+
+      it "allows fetching of stations via array#[]" do
+        expect(stations[0].station_id).to eq('TAPA')
+      end
+
+      it "exposes number of stations via size" do
+        expect(stations.size).to eq(2)
+      end
+
       STATIONS_XML =<<-RESPONSE
 <?xml version="1.0" encoding="UTF-8"?>
 <wx_station_index>

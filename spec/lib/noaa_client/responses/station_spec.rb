@@ -46,7 +46,7 @@ module NoaaClient
       end
 
       it "exposes xml url" do
-        expect(station.xml_url).to eq('http://weather.gov/xml/current_obs/TAPA.xml')
+        expect(station.xml_url).to eq('http://w1.weather.gov/xml/current_obs/TAPA.xml')
       end
     end
   end

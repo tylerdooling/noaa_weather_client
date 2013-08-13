@@ -25,6 +25,10 @@ module NoaaClient
         forecast.tomorrow
       end
 
+      it "exposes number of stations via size" do
+        expect(forecast.size).to eq(7)
+      end
+
       FORECAST_XML =<<-RESPONSE
 <?xml version="1.0"?>
 <dwml version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://graphical.weather.gov/xml/DWMLgen/schema/DWML.xsd">

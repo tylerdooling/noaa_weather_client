@@ -15,6 +15,16 @@ module NoaaClient
         stations.each { |s| yield s }
       end
 
+      def fetch(index)
+        stations.fetch index
+      end
+
+      alias_method :'[]', :fetch
+
+      def size
+        stations.size
+      end
+
       private
 
       attr_reader :body, :options

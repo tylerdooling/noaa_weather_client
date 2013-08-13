@@ -23,6 +23,10 @@ module NoaaClient
         today ? days[1] : days.first
       end
 
+      def size
+        days.size
+      end
+
       private
 
       attr_reader :body

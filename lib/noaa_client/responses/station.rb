@@ -17,6 +17,13 @@ module NoaaClient
         source.css('longitude').text.to_f
       end
 
+      def xml_url
+        @xml_url ||= begin
+                       path = URI(source.css('xml_url').text).path
+                       "http://w1.weather.gov#{path}"
+                     end
+      end
+
       private
 
       attr_reader :source
