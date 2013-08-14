@@ -103,6 +103,11 @@ module NoaaClient
         expect(current_observation.privacy_policy_url).to eq('http://weather.gov/notice.html')
       end
 
+      it "provides a shortcut to return a list of attributes as a hash" do
+        attrs = [ :temp_f, :location, :weather ]
+        expect(current_observation.to_hash(attrs)).to eq(Hash[attrs.map { |a| [ a, current_observation.send(a) ] }])
+      end
+
       CURRENT_OBSERVATION_XML = <<-RESPONSE
 
 <?xml version="1.0" encoding="ISO-8859-1"?> 

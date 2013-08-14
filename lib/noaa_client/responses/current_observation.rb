@@ -9,6 +9,10 @@ module NoaaClient
       def initialize(response)
         @source = XmlParserFactory.build_parser.parse response
       end
+
+      def to_hash(attributes)
+        {}.tap { |h| attributes.each { |a| h.store(a, self.send(a)) } }
+      end
     end
   end
 end
