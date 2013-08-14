@@ -15,12 +15,14 @@ module NoaaClient
         @end_time ||= Time.parse(period.end_time.to_s)
       end
 
-      def high_temp
+      def high_temp(unit = :f)
         @high_temp ||= fetch_parameter('temperature[type=maximum] value')
+        convert_temp @high_temp, unit
       end
 
-      def low_temp
+      def low_temp(unit = :f)
         @low_temp ||= fetch_parameter('temperature[type=minimum] value')
+        convert_temp @low_temp, unit
       end
 
       def weather_summary
@@ -33,6 +35,13 @@ module NoaaClient
         param = parameters.css(css)[index]
         if param
           attribute ? param[attribute] : param.text
+        end
+      end
+
+      def convert_temp(temp, unit)
+        case unit.to_s
+        when /f/ then temp
+        when /c/ then (temp - 32) * 5 / 9
         end
       end
 
