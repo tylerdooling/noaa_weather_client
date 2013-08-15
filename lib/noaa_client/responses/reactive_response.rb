@@ -3,7 +3,11 @@ module NoaaClient
     module ReactiveResponse
       def method_missing(method_name, *arguments, &block)
         if tag = source.css(method_name.to_s)
-          tag.text
+          if block
+            block.call tag.text
+          else
+            tag.text
+          end
         else
           super
         end
