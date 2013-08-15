@@ -15,14 +15,16 @@ module NoaaClient
         @end_time ||= Time.parse(period.end_time.to_s)
       end
 
-      def high_temp(unit = :f)
+      def high_temp(unit = :f, &block)
         @high_temp ||= fetch_parameter('temperature[type=maximum] value')
-        convert_temp @high_temp, unit
+        temp = convert_temp @high_temp, unit
+        block ? block.call(temp) : temp
       end
 
-      def low_temp(unit = :f)
+      def low_temp(unit = :f, &block)
         @low_temp ||= fetch_parameter('temperature[type=minimum] value')
-        convert_temp @low_temp, unit
+        temp = convert_temp @low_temp, unit
+        block ? block.call(temp) : temp
       end
 
       def weather_summary
