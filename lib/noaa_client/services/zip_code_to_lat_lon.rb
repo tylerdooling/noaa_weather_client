@@ -1,32 +1,33 @@
-require_relative 'soap_service'
+require_relative 'rest_service'
 require_relative '../responses/lat_lon_list'
 
 module NoaaClient
   module Services
     class ZipCodeToLatLon
-      include SoapService
+      include RestService
 
       def initialize(options = {})
         @options = options
       end
 
       def convert(zip, options = {})
-        opts = { 'zipCodeList' => zip.to_s }
-        soap_service.object_from_response(:lat_lon_list_zip_code,
-                                          opts,
-                                          response_class: response_class)
+        rest_service.object_from_response(:get, build_url(zip), response_class: response_class)
       end
 
       private
 
       attr_reader :options
 
-      def soap_service
-        options.fetch(:soap_service, self)
+      def rest_service
+        options.fetch(:rest_service, self)
       end
 
       def response_class
         options.fetch(:response_class, Responses::LatLonList)
+      end
+
+      def build_url(zip)
+        "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList=#{zip}"
       end
     end
   end

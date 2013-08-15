@@ -7,9 +7,7 @@ module NoaaClient
       include ReactiveResponse
 
       def initialize(response)
-        @source = XmlParserFactory.build_parser.parse(
-          response[:lat_lon_list_zip_code_response][:list_lat_lon_out]
-        )
+        @source = XmlParserFactory.build_parser.parse(response)
       end
 
       def latitude

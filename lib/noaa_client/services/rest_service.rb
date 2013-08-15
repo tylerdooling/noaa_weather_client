@@ -6,7 +6,7 @@ module NoaaClient
   module RestService
     def object_from_response(action, url, options = {})
       response_class = options.fetch(:response_class, Responses::GenericResponse)
-      client = options.fetch(:client, RestClientFactory.build_client(url: url))
+      client = options.fetch(:client) { RestClientFactory.build_client(url: url) }
       request = build_request_for_action action, url, options
       response_class.new client.request(request).body
     rescue Exception => e
