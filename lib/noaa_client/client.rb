@@ -29,7 +29,7 @@ module NoaaClient
     # @option options [Responses::Stations] stations A cached stations response to prevent having to query noaa for the list.
     # @return [Responses::CurrentObservation]
     def current_observations(lat, lon, options = {})
-      station = options.fetch(:station, nearest_weather_station(lat, lon, options))
+      station = options.fetch(:station) { nearest_weather_station(lat, lon, options) }
       Services::CurrentObservations.new(options).fetch(station)
     end
 
