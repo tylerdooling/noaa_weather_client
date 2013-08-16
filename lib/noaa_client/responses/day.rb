@@ -42,8 +42,8 @@ module NoaaClient
 
       def convert_temp(temp, unit)
         case unit.to_s
-        when /f/ then temp
-        when /c/ then (temp - 32) * 5 / 9
+        when /f/ then temp.to_f
+        when /c/ then (temp.to_f - 32) * 5 / 9
         end
       end
 
