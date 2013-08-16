@@ -46,7 +46,7 @@ module NoaaClient
         end
 
         it "fetches high temp from parameters as celsius" do
-          expect(day.high_temp :c).to eq((max - 32) * 5 / 9)
+          expect(day.high_temp :c).to eq((max.to_f - 32) * 5 / 9)
         end
 
         it "fetches low temp from parameters" do
@@ -54,7 +54,7 @@ module NoaaClient
         end
 
         it "fetches low temp from parameters as celsuis" do
-          expect(day.low_temp :c).to eq((min - 32) * 5 / 9)
+          expect(day.low_temp :c).to eq((min.to_f - 32) * 5 / 9)
         end
 
         it "fetches weather summary from parameters" do
