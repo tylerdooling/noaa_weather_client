@@ -42,6 +42,10 @@ module NoaaClient
         expect(stations.size).to eq(2)
       end
 
+      it "exposes source xml" do
+        expect(stations.to_xml).to eq(fake_response)
+      end
+
       STATIONS_XML =<<-RESPONSE
 <?xml version="1.0" encoding="UTF-8"?>
 <wx_station_index>

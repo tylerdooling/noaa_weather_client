@@ -25,6 +25,10 @@ module NoaaClient
         stations.size
       end
 
+      def to_xml
+        body.to_xml
+      end
+
       private
 
       attr_reader :body, :options
