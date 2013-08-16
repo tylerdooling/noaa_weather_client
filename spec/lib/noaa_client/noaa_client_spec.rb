@@ -57,6 +57,13 @@ module NoaaClient
           expect(client.nearest_weather_station(37.1962, -93.2861).station_id).to eq('KSGF')
         end
       end
+
+      it "uses a cached set of stations if provided" do
+        stations = [ double(latitude: 38.3456, longitude: -97.3345, station_id: 'cached_station') ]
+        expect(
+          client.nearest_weather_station(37.1962, -93.2861, stations: stations).station_id
+        ).to eq('cached_station')
+      end
     end
 
     context "#zip_code_to_lat_lon" do
