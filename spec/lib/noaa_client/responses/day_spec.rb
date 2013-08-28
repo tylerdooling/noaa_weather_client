@@ -29,6 +29,10 @@ module NoaaClient
         let(:min) { 65 }
         let(:weather_summary) { 'Cloudy' }
 
+        def fahrenheit_to_celsius(temp)
+          (temp.to_f - 32) * 5 / 9
+        end
+
         before :each do
           allow(parameters).to receive(:css)
             .with('temperature[type=maximum] value')
@@ -41,20 +45,20 @@ module NoaaClient
             .and_return([double('[]' => weather_summary)])
         end
 
-        it "fetches high temp from parameters" do
-          expect(day.high_temp).to eq(max)
+        it "fetches high temp from parameters as fahrenheit" do
+          expect(day.high_temp_f).to eq(max)
         end
 
         it "fetches high temp from parameters as celsius" do
-          expect(day.high_temp :c).to eq((max.to_f - 32) * 5 / 9)
+          expect(day.high_temp_c).to eq(fahrenheit_to_celsius(max).to_s)
         end
 
-        it "fetches low temp from parameters" do
-          expect(day.low_temp).to eq(min)
+        it "fetches low temp from parameters as fahrenheit" do
+          expect(day.low_temp_f).to eq(min)
         end
 
         it "fetches low temp from parameters as celsuis" do
-          expect(day.low_temp :c).to eq((min.to_f - 32) * 5 / 9)
+          expect(day.low_temp_c).to eq(fahrenheit_to_celsius(min).to_s)
         end
 
         it "fetches weather summary from parameters" do
