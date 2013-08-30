@@ -6,14 +6,14 @@ module NoaaClient
     class WeatherStations
       include RestService
 
+      URL = 'http://w1.weather.gov/xml/current_obs/index.xml'
+
       def initialize(options = {})
         @options = options
       end
 
       def fetch(options = {})
-        rest_service.object_from_response(:get,
-                                          'http://w1.weather.gov/xml/current_obs/index.xml',
-                                          response_class: response_class)
+        rest_service.object_from_response(:get, URL, response_class: response_class)
       end
 
       private

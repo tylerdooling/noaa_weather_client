@@ -6,6 +6,8 @@ module NoaaClient
     class ZipCodeToLatLon
       include RestService
 
+      URL = "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList="
+
       def initialize(options = {})
         @options = options
       end
@@ -27,7 +29,7 @@ module NoaaClient
       end
 
       def build_url(zip)
-        "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList=#{zip}"
+        "#{URL}#{zip}"
       end
     end
   end
