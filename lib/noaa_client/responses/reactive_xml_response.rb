@@ -18,7 +18,11 @@ module NoaaClient
       end
 
       def source
-        @source
+        @source || NullResponse.new
+      end
+
+      class NullResponse
+        def css(*args); end
       end
     end
   end
