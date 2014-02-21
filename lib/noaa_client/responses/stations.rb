@@ -1,10 +1,14 @@
 require_relative '../xml_parser_factory'
 require_relative 'station'
+require 'forwardable'
 
 module NoaaClient
   module Responses
     class Stations
       include Enumerable
+      extend Forwardable
+
+      def_delegators :stations, :'[]', :fetch, :sort_by!, :take, :size
 
       def initialize(response, options = {})
         @body = XmlParserFactory.build_parser.parse response
@@ -13,16 +17,6 @@ module NoaaClient
 
       def each
         stations.each { |s| yield s }
-      end
-
-      def fetch(index)
-        stations.fetch index
-      end
-
-      alias_method :'[]', :fetch
-
-      def size
-        stations.size
       end
 
       def to_xml

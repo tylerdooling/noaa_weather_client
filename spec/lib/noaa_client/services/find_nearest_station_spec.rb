@@ -20,6 +20,11 @@ module NoaaClient
         FindNearestStation.find(location.latitude, location.longitude, stations, {})
       end
 
+      it "accepts a callable filter for the stations" do
+        mock_filter = ->(station) { station == washington_dc ? true : false }
+        FindNearestStation.find(location.latitude, location.longitude, stations, { filter: mock_filter })
+      end
+
       it "returns the closest of the provided stations" do
         expect(
           FindNearestStation.find(location.latitude, location.longitude, stations)

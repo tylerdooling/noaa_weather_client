@@ -1,6 +1,6 @@
 module NoaaClient
   module Responses
-    module ReactiveResponse
+    module ReactiveXmlResponse
       def method_missing(method_name, *arguments, &block)
         if tag = source.css(method_name.to_s)
           if block

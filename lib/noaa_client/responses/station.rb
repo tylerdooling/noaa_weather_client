@@ -1,9 +1,9 @@
-require_relative 'reactive_response'
+require_relative 'reactive_xml_response'
 
 module NoaaClient
   module Responses
     class Station
-      include ReactiveResponse
+      include ReactiveXmlResponse
 
       def initialize(station)
         @source = station

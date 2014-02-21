@@ -1,10 +1,10 @@
 require_relative '../xml_parser_factory'
-require_relative 'reactive_response'
+require_relative 'reactive_xml_response'
 
 module NoaaClient
   module Responses
     class CurrentObservation
-      include ReactiveResponse
+      include ReactiveXmlResponse
 
       def initialize(response)
         @source = XmlParserFactory.build_parser.parse response
