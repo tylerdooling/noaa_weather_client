@@ -67,7 +67,7 @@ module NoaaClient
     end
 
     context "#zip_code_to_lat_lon" do
-      it "converts a zip code to coordinate" do
+      it "resolves a zip code to coordinate" do
         VCR.use_cassette(:zip_code_to_lat_lon) do
           expect(client.zip_code_to_lat_lon(65804).latitude).to eq(37.1962)
           expect(client.zip_code_to_lat_lon(65804).longitude).to eq(-93.2861)

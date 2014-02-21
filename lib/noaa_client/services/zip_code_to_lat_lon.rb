@@ -12,7 +12,7 @@ module NoaaClient
         @options = options
       end
 
-      def convert(zip, options = {})
+      def resolve(zip, options = {})
         rest_service.object_from_response(:get, build_url(zip), response_class: response_class)
       end
 

@@ -50,7 +50,7 @@ module NoaaClient
     # @param lon [Float] longitude
     # @return [Responses::LatLonList]
     def zip_code_to_lat_lon(zip, options = {})
-      Services::ZipCodeToLatLon.new(options).convert(zip)
+      Services::ZipCodeToLatLon.new(options).resolve(zip)
     end
 
     private
