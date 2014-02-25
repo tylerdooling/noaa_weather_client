@@ -29,6 +29,21 @@ module NoaaClient
           expect(client.weather_stations.size).to be > 2500
         end
       end
+
+      it "caches weather stations" do
+        VCR.use_cassette(:weather_stations) do
+          stations = client.weather_stations
+          expect(client.weather_stations.object_id).to eq(stations.object_id)
+        end
+      end
+
+      it "reloads stations with :reload flag" do
+        VCR.use_cassette(:weather_stations) do
+          stations = client.weather_stations
+          client.instance_variable_set('@weather_stations', double)
+          expect(client.weather_stations(relaod: true).object_id).to_not eq(stations.object_id)
+        end
+      end
     end
 
     context "#current_observations" do

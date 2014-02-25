@@ -20,7 +20,10 @@ module NoaaClient
     # Retrieves a list of weather stations from noaa.
     # @return [Responses::Stations] a list of weather stations.
     def weather_stations(options = {})
-      Services::WeatherStations.new(options).fetch
+      if options.delete(:reload) { false } || @weather_stations.nil?
+        @weather_stations = Services::WeatherStations.new(options).fetch
+      end
+      @weather_stations
     end
 
     # Retrieves the current weather observations for a location.
