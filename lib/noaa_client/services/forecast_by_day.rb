@@ -34,9 +34,18 @@ module NoaaClient
           longitude: opts.delete(:longitude),
           startDate: opts.delete(:start_date) { Date.today.to_s },
           numDays: opts.delete(:days) { 7 },
-          unit: opts.delete(:unit) { 'e' },
+          unit: unit!(opts),
           format: opts.delete(:format) { '24 hourly' }
         }.merge!(opts)
+      end
+
+      def unit!(options)
+        u = options.delete(:unit) { :standard }
+        if u == :standard
+          'e'
+        elsif u == :metric
+          'm'
+        end
       end
     end
   end

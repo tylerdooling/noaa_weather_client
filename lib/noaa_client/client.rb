@@ -7,12 +7,14 @@ require_relative 'services/zip_code_to_lat_lon'
 module NoaaClient
   # Provides entry point for interacting with the noaa api via multiple services.
   class Client
-    # Fetches a daily forecast for a location. Default is 7 days.
+    # Fetches a daily forecast for a location from today. Default is 7 days.
+    # The forecast for the current day ceases to be returned after 6:00pm at the
+    # observation area.
     # @param lat [Float] latitude
     # @param lon [Float] longitude
     # @return [Responses::Forecast] a list of daily forecasts.
     def forecast_by_day(lat, lon, options = {})
-      parse_service(options).fetch(lat, lon, options)
+      Services::ForecastByDay.new.fetch(lat, lon, options)
     end
 
     # Retrieves a list of weather stations from noaa.
@@ -51,12 +53,6 @@ module NoaaClient
     # @return [Responses::LatLonList]
     def zip_code_to_lat_lon(zip, options = {})
       Services::ZipCodeToLatLon.new(options).resolve(zip)
-    end
-
-    private
-
-    def parse_service(options)
-      options.delete(:service) { |k| Services::ForecastByDay.new }
     end
   end
 end

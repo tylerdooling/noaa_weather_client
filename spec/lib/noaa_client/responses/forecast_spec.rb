@@ -17,17 +17,66 @@ module NoaaClient
         expect { forecast.each { |d| count += 1 } }.to change { count }.by(7)
       end
 
-      it "provides a helper for today" do
-        forecast.today
-      end
-
-      it "provides a helper for tomorrow" do
-        forecast.tomorrow
-      end
-
       it "exposes number of stations via size" do
         expect(forecast.size).to eq(7)
       end
+
+      describe Forecast::Day do
+        let(:period) { double(start_time: Date.today.to_time, end_time: (Date.today + 1).to_time) }
+        let(:index) { 0 }
+        let(:parameters) { double(css: []) }
+        let(:day) { Forecast::Day.new period, index, parameters }
+
+        it "requires a period, index, and parameters" do
+          Forecast::Day.new :period, :index, :parameters
+          expect { Forecast::Day.new }.to raise_error(ArgumentError)
+          expect { Forecast::Day.new :period }.to raise_error(ArgumentError)
+          expect { Forecast::Day.new :period, :index }.to raise_error(ArgumentError)
+        end
+
+        it "exposes start_time from period" do
+          expect(day.start_time).to eq(period.start_time)
+        end
+
+        it "exposes end_time from period" do
+          expect(day.end_time).to eq(period.end_time)
+        end
+
+        context "data from parameters" do
+          let(:max) { 85 }
+          let(:min) { 65 }
+          let(:weather_summary) { 'Cloudy' }
+
+          def fahrenheit_to_celsius(temp)
+            (temp.to_f - 32) * 5 / 9
+          end
+
+          before :each do
+            allow(parameters).to receive(:css)
+            .with('temperature[type=maximum] value')
+            .and_return([double(text: max)])
+            allow(parameters).to receive(:css)
+            .with('temperature[type=minimum] value')
+            .and_return([double(text: min)])
+            allow(parameters).to receive(:css)
+            .with('weather weather-conditions')
+            .and_return([double('[]' => weather_summary)])
+          end
+
+          it "fetches max temp" do
+            expect(day.maximum_temperature).to eq(max)
+          end
+
+          it "fetches min temp" do
+            expect(day.minimum_temperature).to eq(min)
+          end
+
+          it "fetches weather summary from parameters" do
+            expect(day.weather_summary).to eq(weather_summary)
+          end
+        end
+      end
+
 
       FORECAST_XML =<<-RESPONSE
 <?xml version="1.0"?>

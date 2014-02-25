@@ -1,5 +1,4 @@
 require_relative '../xml_parser_factory'
-require_relative 'day'
 
 module NoaaClient
   module Responses
@@ -13,14 +12,6 @@ module NoaaClient
 
       def each
         days.each { |d| yield d }
-      end
-
-      def today
-        days.first if days.first.start_time.to_date == Date.today
-      end
-
-      def tomorrow
-        today ? days[1] : days.first
       end
 
       def size
@@ -68,6 +59,49 @@ module NoaaClient
             end
           end
         end
+      end
+
+      class Day
+        def initialize(period, index, parameters)
+          @period = period
+          @index = index
+          @parameters = parameters
+        end
+
+        def start_time
+          @start_time ||= Time.parse(period.start_time.to_s)
+        end
+
+        def end_time
+          @end_time ||= Time.parse(period.end_time.to_s)
+        end
+
+        def maximum_temperature
+          @maximum_temperature ||= fetch_parameter('temperature[type=maximum] value')
+        end
+
+        def minimum_temperature
+          @minimum_temperature ||= fetch_parameter('temperature[type=minimum] value')
+        end
+
+        def weather_summary
+          @weather ||= fetch_parameter('weather weather-conditions', 'weather-summary')
+        end
+
+        private
+
+        def fetch_parameter(css, attribute = nil)
+          param = parameters.css(css)[index]
+          if param
+            attribute ? param[attribute] : param.text
+          end
+        end
+
+        def fahrenheit_to_celsius(temp)
+          (temp.to_f - 32) * 5 / 9
+        end
+
+        attr_reader :period, :index, :parameters
       end
     end
   end
