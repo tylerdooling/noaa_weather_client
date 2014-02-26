@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = NoaaWeatherClient::VERSION
   spec.authors       = ["Tyler Dooling"]
   spec.email         = ["me@tylerdooling.com"]
-  spec.description   = %q{A ruby wrapper for the NOAA weather forecast and current observations api.}
+  spec.description   = %q{A ruby wrapper for the NOAA weather forecast and current observations API.}
   spec.summary       = %q{Provides forecasts and current observations from NOAA for geo coordinates or postal codes.}
   spec.homepage      = ""
   spec.license       = "MIT"
