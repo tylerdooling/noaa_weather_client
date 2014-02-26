@@ -1,6 +1,6 @@
 # NoaaWeatherClient
 
-Ruby wrapper for the NOAA weather api.
+Ruby wrapper for the NOAA weather API.
 
 ## Installation
 
@@ -21,36 +21,63 @@ Or install it yourself as:
 
 ### Weather Station Caching
 
-It is important to cache a copy of the available stations for use here, as the xml stations response is quite large noaa does not appreciate repeated calls.
+It is important to cache a copy of the available stations for frequent use as the stations response is quite large NOAA does not appreciate repeated calls.
 
 ```ruby
 # cache a copy of stations and store in memory, file, etc.
-stations = client.nearest_weather_station(coordinate.latitude, coordinate.longitude)
+stations = client.weather_stations
 
 # current_observations
 client.current_observations(some_lat, some_lon, stations: stations)
 
 # nearest_weather_station
 client.nearest_weather_station(some_lat, some_lon, stations: stations)
+
+# filter by station type
+filter = NoaaWeatherClient::StationFilters.icao
+client.nearest_weather_station(some_lat, some_lon, stations: stations, filter: filter)
+```
+
+### Postal Codes
+NOAA provides a service to resolve postal codes to a coordinate.
+
+```ruby
+# convert postal code to coordinate
+coordinate = client.postal_code_to_coordinate(90210)
+coordinate.latitude #=> 34.0995
+coordinate.longitude #=> -118.414
 ```
 
 ## Usage
-
 ```ruby
+# create a client instance
 client = NoaaWeatherClient.build_client
 
 # all weather stations
 client.weather_stations
 
-# nearest_weather_station
-client.nearest_weather_station(coordinate.latitude, coordinate.longitude)
-
-# convert postal code to lat/lon
-coordinate = client.postal_code_to_coordinate(90210)
+# locate the nearest weather station
+client.nearest_weather_station(34.0995, -118.414)
 
 # 7 day forecast
-client.forecast_by_day(coordinate.latitude, coordinate.longitude)
+client.forecast_by_day(34.0995, -118.414)
 
 # current observations
-client.current_observations(coordinate.latitude, coordinate.longitude)
+client.current_observations(34.0995, -118.414)
 ```
+
+## Contributing
+Contributions are always welcome. A few notes:
+
+* Keep changes small and on topic.
+* Stay consistent with existing code conventions.
+* Break changes into smaller logical commits.
+
+To propose a change or fix a bug:
+
+* [Fork the project.](https://help.github.com/articles/fork-a-repo)
+* Make your feature addition or bug fix.
+* Add tests for it.
+* Commit.
+* [Send a pull request](https://help.github.com/articles/using-pull-requests)
+
