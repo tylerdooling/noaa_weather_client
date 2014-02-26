@@ -28,16 +28,16 @@ module NoaaClient
         expect(current_observation.station_id).to eq('KSGF')
       end
       it "exposes latitude" do
-        expect(current_observation.latitude).to eq('37.23')
+        expect(current_observation.latitude).to eq(37.23)
       end
       it "exposes longitude" do
-        expect(current_observation.longitude).to eq('-93.38')
+        expect(current_observation.longitude).to eq(-93.38)
+      end
+      it "exposes observation_time_string" do
+        expect(current_observation.observation_time_string).to eq('Last Updated on Aug 12 2013, 8:52 pm CDT')
       end
       it "exposes observation_time" do
-        expect(current_observation.observation_time).to eq('Last Updated on Aug 12 2013, 8:52 pm CDT')
-      end
-      it "exposes observation_time_rfc822" do
-        expect(current_observation.observation_time_rfc822).to eq('Mon, 12 Aug 2013 20:52:00 -0500')
+        expect(current_observation.observation_time).to eq(Time.parse '2013-08-12 20:52:00 -0500')
       end
       it "exposes weather" do
         expect(current_observation.weather).to eq('Fair')
@@ -45,14 +45,14 @@ module NoaaClient
       it "exposes temperature_string" do
         expect(current_observation.temperature_string).to eq('74.0 F (23.3 C)')
       end
-      it "exposes temp_f" do
-        expect(current_observation.temp_f).to eq('74.0')
+      it "exposes temperature_fahrenheit" do
+        expect(current_observation.temperature_fahrenheit).to eq(74.0)
       end
-      it "exposes temp_c" do
-        expect(current_observation.temp_c).to eq('23.3')
+      it "exposes temperature_celsius" do
+        expect(current_observation.temperature_celsius).to eq(23.3)
       end
       it "exposes relative_humidity" do
-        expect(current_observation.relative_humidity).to eq('85')
+        expect(current_observation.relative_humidity).to eq(85)
       end
       it "exposes wind_string" do
         expect(current_observation.wind_string).to eq('Calm')
@@ -61,34 +61,34 @@ module NoaaClient
         expect(current_observation.wind_dir).to eq('North')
       end
       it "exposes wind_degrees" do
-        expect(current_observation.wind_degrees).to eq('0')
+        expect(current_observation.wind_degrees).to eq(0)
       end
       it "exposes wind_mph" do
-        expect(current_observation.wind_mph).to eq('0.0')
+        expect(current_observation.wind_mph).to eq(0.0)
       end
       it "exposes wind_kt" do
-        expect(current_observation.wind_kt).to eq('0')
+        expect(current_observation.wind_kt).to eq(0)
       end
       it "exposes pressure_string" do
         expect(current_observation.pressure_string).to eq('1014.7 mb')
       end
       it "exposes pressure_mb" do
-        expect(current_observation.pressure_mb).to eq('1014.7')
+        expect(current_observation.pressure_mb).to eq(1014.7)
       end
       it "exposes pressure_in" do
-        expect(current_observation.pressure_in).to eq('30.00')
+        expect(current_observation.pressure_in).to eq(30.00)
       end
       it "exposes dewpoint_string" do
         expect(current_observation.dewpoint_string).to eq('69.1 F (20.6 C)')
       end
-      it "exposes dewpoint_f" do
-        expect(current_observation.dewpoint_f).to eq('69.1')
+      it "exposes dewpoint_fahrenheit" do
+        expect(current_observation.dewpoint_fahrenheit).to eq(69.1)
       end
-      it "exposes dewpoint_c" do
-        expect(current_observation.dewpoint_c).to eq('20.6')
+      it "exposes dewpoint_celsius" do
+        expect(current_observation.dewpoint_celsius).to eq(20.6)
       end
       it "exposes visibility_mi" do
-        expect(current_observation.visibility_mi).to eq('10.00')
+        expect(current_observation.visibility_mi).to eq(10.00)
       end
       it "exposes icon_url_base" do
         expect(current_observation.icon_url_base).to eq('http://forecast.weather.gov/images/wtf/small/')
@@ -111,12 +111,6 @@ module NoaaClient
       it "exposes privacy_policy_url" do
         expect(current_observation.privacy_policy_url).to eq('http://weather.gov/notice.html')
       end
-
-      it "provides a shortcut to return a list of attributes as a hash" do
-        attrs = [ :temp_f, :location, :weather ]
-        expect(current_observation.to_hash(attrs)).to eq(Hash[attrs.map { |a| [ a, current_observation.send(a) ] }])
-      end
-
     end
   end
 end
