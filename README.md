@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/tylerdooling/noaa_weather_client.png)](https://travis-ci.org/tylerdooling/noaa_weather_client)
 # NoaaWeatherClient
 
 Ruby wrapper for the NOAA weather API.
