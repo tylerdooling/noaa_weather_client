@@ -1,7 +1,7 @@
 require_relative 'soap_service'
 require_relative '../responses/forecast'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     class ForecastByDay
       include SoapService

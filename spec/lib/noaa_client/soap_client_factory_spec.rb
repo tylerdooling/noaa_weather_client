@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
-require_relative '../../../lib/noaa_client/soap_client_factory'
+require_relative '../../../lib/noaa_weather_client/soap_client_factory'
 
-module NoaaClient
+module NoaaWeatherClient
   describe SoapClientFactory do
     it "builds a soap client with the noaa wdsl" do
       mock_provider = double()

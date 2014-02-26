@@ -1,8 +1,8 @@
 require 'nokogiri'
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/responses/stations'
+require_relative '../../../../lib/noaa_weather_client/responses/stations'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     describe Stations do
       let(:fake_response) { STATIONS_XML }

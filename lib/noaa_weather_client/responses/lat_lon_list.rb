@@ -1,7 +1,7 @@
 require_relative '../xml_parser_factory'
 require_relative 'reactive_xml_response'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     class LatLonList
       include ReactiveXmlResponse

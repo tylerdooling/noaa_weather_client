@@ -1,4 +1,4 @@
-module NoaaClient
+module NoaaWeatherClient
   module Services
     module CalculateDistanceBetweenLatLon
       extend Math

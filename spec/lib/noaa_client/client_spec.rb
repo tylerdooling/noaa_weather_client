@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
-require_relative '../../../lib/noaa_client/client'
+require_relative '../../../lib/noaa_weather_client/client'
 
-module NoaaClient
+module NoaaWeatherClient
   describe Client do
     let(:client) { Client.new }
 
@@ -81,11 +81,11 @@ module NoaaClient
       end
     end
 
-    context "#zip_code_to_lat_lon" do
-      it "resolves a zip code to coordinate" do
-        VCR.use_cassette(:zip_code_to_lat_lon) do
-          expect(client.zip_code_to_lat_lon(65804).latitude).to eq(37.1962)
-          expect(client.zip_code_to_lat_lon(65804).longitude).to eq(-93.2861)
+    context "#postal_code_to_coordinate" do
+      it "resolves a postal code to coordinate" do
+        VCR.use_cassette(:postal_code_to_coordinate) do
+          expect(client.postal_code_to_coordinate(65804).latitude).to eq(37.1962)
+          expect(client.postal_code_to_coordinate(65804).longitude).to eq(-93.2861)
         end
       end
     end

@@ -1,7 +1,7 @@
 require_relative 'rest_service'
 require_relative '../responses/stations'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     class WeatherStations
       include RestService

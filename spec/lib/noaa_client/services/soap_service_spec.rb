@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/soap_service'
+require_relative '../../../../lib/noaa_weather_client/services/soap_service'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe SoapService do
       let(:fake_response) { double(body: 'fake_response_body') }

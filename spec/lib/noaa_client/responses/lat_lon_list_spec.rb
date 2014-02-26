@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/responses/lat_lon_list'
+require_relative '../../../../lib/noaa_weather_client/responses/lat_lon_list'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     describe LatLonList do
       let(:fake_response) { ZIP_XML }

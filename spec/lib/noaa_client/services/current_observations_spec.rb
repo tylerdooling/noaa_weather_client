@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/current_observations'
+require_relative '../../../../lib/noaa_weather_client/services/current_observations'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe CurrentObservations do
       let(:mock_station) { double(xml_url: 'http://w1.weather.gov/xml/current_obs/KSGF.xml') }

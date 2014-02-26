@@ -1,14 +1,14 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'noaa_client/version'
+require 'noaa_weather_client/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "noaa_client"
-  spec.version       = NoaaClient::VERSION
+  spec.name          = "noaa_weather_client"
+  spec.version       = NoaaWeatherClient::VERSION
   spec.authors       = ["Tyler Dooling"]
   spec.email         = ["me@tylerdooling.com"]
-  spec.description   = %q{A ruby wrapper for the NOAA weather api.}
+  spec.description   = %q{A ruby wrapper for the NOAA weather forecast and current observations api.}
   spec.summary       = %q{Provides forecasts and current observations from NOAA for geo coordinates or postal codes.}
   spec.homepage      = ""
   spec.license       = "MIT"

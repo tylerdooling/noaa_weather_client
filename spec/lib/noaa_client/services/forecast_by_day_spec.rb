@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/forecast_by_day'
+require_relative '../../../../lib/noaa_weather_client/services/forecast_by_day'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe ForecastByDay do
       it "accepts an options hash" do

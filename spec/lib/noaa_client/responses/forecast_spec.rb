@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/responses/forecast'
+require_relative '../../../../lib/noaa_weather_client/responses/forecast'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     describe Forecast do
       let(:fake_response) { { ndf_dgen_by_day_response: { dwml_by_day_out: FORECAST_XML } } }

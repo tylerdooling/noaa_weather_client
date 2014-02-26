@@ -1,7 +1,7 @@
 require_relative '../xml_parser_factory'
 require 'ostruct'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     class Forecast
       include Enumerable

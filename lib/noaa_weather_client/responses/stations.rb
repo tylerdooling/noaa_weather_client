@@ -2,7 +2,7 @@ require_relative '../xml_parser_factory'
 require_relative 'station'
 require 'forwardable'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     class Stations
       include Enumerable

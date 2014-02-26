@@ -1,12 +1,12 @@
-# NoaaClient
+# NoaaWeatherClient
 
-Ruby wrapper for the noaa weather api.
+Ruby wrapper for the NOAA weather api.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'noaa_client'
+    gem 'noaa_weather_client'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install noaa_client
+    $ gem install noaa_weather_client
 
 
 ## Notes
@@ -37,7 +37,7 @@ client.nearest_weather_station(some_lat, some_lon, stations: stations)
 ## Usage
 
 ```ruby
-client = NoaaClient.build_client
+client = NoaaWeatherClient.build_client
 
 # all weather stations
 client.weather_stations

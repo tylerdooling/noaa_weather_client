@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/zip_code_to_lat_lon'
+require_relative '../../../../lib/noaa_weather_client/services/zip_code_to_lat_lon'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe ZipCodeToLatLon do
       it "accepts an options hash" do

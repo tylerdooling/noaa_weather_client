@@ -2,7 +2,7 @@ require 'savon'
 require_relative '../soap_client_factory'
 require_relative '../responses/generic_response'
 
-module NoaaClient
+module NoaaWeatherClient
   module SoapService
     def object_from_response(soap_action, message, options = {})
       client = options.fetch(:client, SoapClientFactory.build_client)

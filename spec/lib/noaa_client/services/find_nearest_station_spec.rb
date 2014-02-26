@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/find_nearest_station'
+require_relative '../../../../lib/noaa_weather_client/services/find_nearest_station'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe FindNearestStation do
       let(:location) { double(latitude:39.1000, longitude: -94.5800) } #kansas city

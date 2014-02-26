@@ -2,7 +2,7 @@ require 'net/http'
 require_relative '../rest_client_factory'
 require_relative '../responses/generic_response'
 
-module NoaaClient
+module NoaaWeatherClient
   module RestService
     def object_from_response(action, url, options = {})
       response_class = options.fetch(:response_class, Responses::GenericResponse)

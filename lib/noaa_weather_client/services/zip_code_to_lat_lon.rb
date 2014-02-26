@@ -1,7 +1,7 @@
 require_relative 'rest_service'
 require_relative '../responses/lat_lon_list'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     class ZipCodeToLatLon
       include RestService

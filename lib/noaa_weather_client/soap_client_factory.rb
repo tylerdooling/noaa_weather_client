@@ -1,6 +1,6 @@
 require 'savon'
 
-module NoaaClient
+module NoaaWeatherClient
   module SoapClientFactory
     WSDL = 'http://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl'
 

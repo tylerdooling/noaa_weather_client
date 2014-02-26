@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/weather_stations'
+require_relative '../../../../lib/noaa_weather_client/services/weather_stations'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe WeatherStations do
       it "accepts an options hash" do

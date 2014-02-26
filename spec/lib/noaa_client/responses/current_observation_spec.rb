@@ -1,8 +1,8 @@
 
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/responses/current_observation'
+require_relative '../../../../lib/noaa_weather_client/responses/current_observation'
 
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     describe CurrentObservation do
       let(:body) {

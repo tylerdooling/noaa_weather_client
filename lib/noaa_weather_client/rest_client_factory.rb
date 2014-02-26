@@ -1,7 +1,7 @@
 require 'net/http'
 require 'uri'
 
-module NoaaClient
+module NoaaWeatherClient
   module RestClientFactory
     def self.build_client(options = {})
       provider = options.fetch(:provider, Net::HTTP)

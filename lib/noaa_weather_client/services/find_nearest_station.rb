@@ -1,6 +1,6 @@
 require_relative 'calculate_distance_between_lat_lon'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     module FindNearestStation
       def self.find(lat, lon, stations, options = {})

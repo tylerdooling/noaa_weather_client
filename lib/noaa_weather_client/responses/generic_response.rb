@@ -1,4 +1,4 @@
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     class GenericResponse
       def initialize(response_body)

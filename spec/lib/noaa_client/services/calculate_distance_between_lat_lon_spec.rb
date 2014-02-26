@@ -1,7 +1,7 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_client/services/calculate_distance_between_lat_lon'
+require_relative '../../../../lib/noaa_weather_client/services/calculate_distance_between_lat_lon'
 
-module NoaaClient
+module NoaaWeatherClient
   module Services
     describe CalculateDistanceBetweenLatLon do
       let(:springfield) { [ 37.1962, -93.2861 ] }

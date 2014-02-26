@@ -4,7 +4,7 @@ require_relative 'services/current_observations'
 require_relative 'services/find_nearest_station'
 require_relative 'services/zip_code_to_lat_lon'
 
-module NoaaClient
+module NoaaWeatherClient
   # Provides entry point for interacting with the noaa api via multiple services.
   class Client
     # Fetches a daily forecast for a location from today. Default is 7 days.

@@ -1,4 +1,4 @@
-module NoaaClient
+module NoaaWeatherClient
   module Responses
     module ReactiveXmlResponse
       def method_missing(method_name, *arguments, &block)

@@ -1,8 +1,8 @@
 require 'uri'
 require_relative '../../spec_helper'
-require_relative '../../../lib/noaa_client/rest_client_factory'
+require_relative '../../../lib/noaa_weather_client/rest_client_factory'
 
-module NoaaClient
+module NoaaWeatherClient
   describe RestClientFactory do
     it "builds a rest client with the provided url" do
       mock_provider = double()
