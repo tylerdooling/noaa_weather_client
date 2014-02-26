@@ -21,18 +21,13 @@ module NoaaClient
         expect(forecast.size).to eq(7)
       end
 
-      describe Forecast::Day do
-        let(:period) { double(start_time: Date.today.to_time, end_time: (Date.today + 1).to_time) }
-        let(:index) { 0 }
-        let(:parameters) { double(css: []) }
-        let(:day) { Forecast::Day.new period, index, parameters }
-
-        it "requires a period, index, and parameters" do
-          Forecast::Day.new :period, :index, :parameters
-          expect { Forecast::Day.new }.to raise_error(ArgumentError)
-          expect { Forecast::Day.new :period }.to raise_error(ArgumentError)
-          expect { Forecast::Day.new :period, :index }.to raise_error(ArgumentError)
-        end
+      describe '#days' do
+        let(:period) { double(start_time: Time.parse('2013-08-12 06:00:00 -0500'),
+                              end_time: Time.parse('2013-08-13 06:00:00 -0500')) }
+        let(:max) { 86.0 }
+        let(:min) { 69.0 }
+        let(:weather_summary) { 'Chance Thunderstorms' }
+        let(:day) { forecast.days.first }
 
         it "exposes start_time from period" do
           expect(day.start_time).to eq(period.start_time)
@@ -42,43 +37,22 @@ module NoaaClient
           expect(day.end_time).to eq(period.end_time)
         end
 
-        context "data from parameters" do
-          let(:max) { 85 }
-          let(:min) { 65 }
-          let(:weather_summary) { 'Cloudy' }
+        it "fetches max temp" do
+          expect(day.maximum_temperature).to eq(max)
+        end
 
-          def fahrenheit_to_celsius(temp)
-            (temp.to_f - 32) * 5 / 9
-          end
+        it "fetches min temp" do
+          expect(day.minimum_temperature).to eq(min)
+        end
 
-          before :each do
-            allow(parameters).to receive(:css)
-            .with('temperature[type=maximum] value')
-            .and_return([double(text: max)])
-            allow(parameters).to receive(:css)
-            .with('temperature[type=minimum] value')
-            .and_return([double(text: min)])
-            allow(parameters).to receive(:css)
-            .with('weather weather-conditions')
-            .and_return([double('[]' => weather_summary)])
-          end
-
-          it "fetches max temp" do
-            expect(day.maximum_temperature).to eq(max)
-          end
-
-          it "fetches min temp" do
-            expect(day.minimum_temperature).to eq(min)
-          end
-
-          it "fetches weather summary from parameters" do
-            expect(day.weather_summary).to eq(weather_summary)
-          end
+        it "fetches weather summary from parameters" do
+          expect(day.weather_summary).to eq(weather_summary)
         end
       end
+    end
 
 
-      FORECAST_XML =<<-RESPONSE
+    FORECAST_XML =<<-RESPONSE
 <?xml version="1.0"?>
 <dwml version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://graphical.weather.gov/xml/DWMLgen/schema/DWML.xsd">
   <head>
@@ -227,7 +201,6 @@ module NoaaClient
     </parameters>
   </data>
 </dwml>
-      RESPONSE
-    end
+    RESPONSE
   end
 end

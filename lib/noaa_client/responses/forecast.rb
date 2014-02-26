@@ -1,4 +1,5 @@
 require_relative '../xml_parser_factory'
+require 'ostruct'
 
 module NoaaClient
   module Responses
@@ -18,13 +19,13 @@ module NoaaClient
         days.size
       end
 
-      private
-
-      attr_reader :body
-
       def days
         @days ||= build_days
       end
+
+      private
+
+      attr_reader :body
 
       def time_layout
         @time_layout ||= body.css("time-layout[summarization='24hourly']").first
@@ -55,54 +56,24 @@ module NoaaClient
         unless @days
           @day = [].tap do |arr|
             time_layout_periods.each_with_index do |p, i|
-              arr << Day.new(p, i, parameters)
+              params = build_day_params p, i
+              arr << Day.new(params)
             end
           end
         end
       end
 
-      class Day
-        def initialize(period, index, parameters)
-          @period = period
-          @index = index
-          @parameters = parameters
-        end
-
-        def start_time
-          @start_time ||= Time.parse(period.start_time.to_s)
-        end
-
-        def end_time
-          @end_time ||= Time.parse(period.end_time.to_s)
-        end
-
-        def maximum_temperature
-          @maximum_temperature ||= fetch_parameter('temperature[type=maximum] value')
-        end
-
-        def minimum_temperature
-          @minimum_temperature ||= fetch_parameter('temperature[type=minimum] value')
-        end
-
-        def weather_summary
-          @weather ||= fetch_parameter('weather weather-conditions', 'weather-summary')
-        end
-
-        private
-
-        def fetch_parameter(css, attribute = nil)
-          param = parameters.css(css)[index]
-          if param
-            attribute ? param[attribute] : param.text
-          end
-        end
-
-        def fahrenheit_to_celsius(temp)
-          (temp.to_f - 32) * 5 / 9
-        end
-
-        attr_reader :period, :index, :parameters
+      def build_day_params(period, index)
+        {
+          start_time: Time.parse(period.start_time.to_s),
+          end_time: Time.parse(period.end_time.to_s),
+          maximum_temperature: parameters.css('temperature[type=maximum] value')[index].text.to_f,
+          minimum_temperature: parameters.css('temperature[type=minimum] value')[index].text.to_f,
+          weather_summary: parameters.css('weather weather-conditions')[index]['weather-summary']
+        }
       end
+
+      class Day < OpenStruct; end
     end
   end
 end
