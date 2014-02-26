@@ -1,17 +1,17 @@
 require_relative '../../../spec_helper'
-require_relative '../../../../lib/noaa_weather_client/services/zip_code_to_lat_lon'
+require_relative '../../../../lib/noaa_weather_client/services/postal_code_to_coordinate'
 
 module NoaaWeatherClient
   module Services
-    describe ZipCodeToLatLon do
+    describe PostalCodeToCoordinate do
       it "accepts an options hash" do
-        ZipCodeToLatLon.new {}
+        PostalCodeToCoordinate.new {}
       end
 
       context "#resolve" do
         let(:options) { { rest_service: double(object_from_response: nil) } }
         let(:zip) { 90210 }
-        let(:zip_lat_lon) { ZipCodeToLatLon.new options }
+        let(:zip_lat_lon) { PostalCodeToCoordinate.new options }
 
         it "accepts an options hash" do
           zip_lat_lon.resolve options

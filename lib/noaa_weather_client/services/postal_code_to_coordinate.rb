@@ -3,7 +3,7 @@ require_relative '../responses/lat_lon_list'
 
 module NoaaWeatherClient
   module Services
-    class ZipCodeToLatLon
+    class PostalCodeToCoordinate
       include RestService
 
       URL = "http://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?listZipCodeList="

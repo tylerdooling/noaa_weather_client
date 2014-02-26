@@ -2,7 +2,7 @@ require_relative 'services/forecast_by_day'
 require_relative 'services/weather_stations'
 require_relative 'services/current_observations'
 require_relative 'services/find_nearest_station'
-require_relative 'services/zip_code_to_lat_lon'
+require_relative 'services/postal_code_to_coordinate'
 
 module NoaaWeatherClient
   # Provides entry point for interacting with the noaa api via multiple services.
@@ -54,8 +54,8 @@ module NoaaWeatherClient
     # @param lat [Float] latitude
     # @param lon [Float] longitude
     # @return [Responses::LatLonList]
-    def zip_code_to_lat_lon(zip, options = {})
-      Services::ZipCodeToLatLon.new(options).resolve(zip)
+    def postal_code_to_coordinate(postal_code, options = {})
+      Services::PostalCodeToCoordinate.new(options).resolve(postal_code)
     end
   end
 end

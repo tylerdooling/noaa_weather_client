@@ -45,8 +45,8 @@ client.weather_stations
 # nearest_weather_station
 client.nearest_weather_station(coordinate.latitude, coordinate.longitude)
 
-# convert zip to lat/lon
-coordinate = client.zip_code_to_lat_lon(90210)
+# convert postal code to lat/lon
+coordinate = client.postal_code_to_coordinate(90210)
 
 # 7 day forecast
 client.forecast_by_day(coordinate.latitude, coordinate.longitude)
