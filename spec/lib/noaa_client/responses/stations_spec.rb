@@ -43,7 +43,7 @@ module NoaaWeatherClient
       end
 
       it "exposes source xml" do
-        expect(stations.to_xml).to eq(fake_response)
+        expect(stations.to_xml).to eq(Nokogiri::XML.parse(fake_response).to_xml)
       end
 
       STATIONS_XML =<<-RESPONSE
