@@ -21,6 +21,12 @@ module NoaaWeatherClient
         expect { CurrentObservation.new }.to raise_error(ArgumentError)
       end
 
+      context "when the response is invalid" do
+        it "raises an ArgumentError" do
+          expect { CurrentObservation.new '' }.to raise_error(ValidatableXmlResponse::InvalidXmlError)
+        end
+      end
+
       it "exposes location" do
         expect(current_observation.location).to eq('Springfield-Branson National Airport, MO')
       end
