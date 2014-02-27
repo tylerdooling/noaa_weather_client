@@ -1,14 +1,16 @@
 require_relative '../xml_parser_factory'
+require_relative 'validatable_xml_response'
 require 'ostruct'
 
 module NoaaWeatherClient
   module Responses
     class Forecast
       include Enumerable
-      TimePeriod = Struct.new(:start_time, :end_time)
+      include ValidatableXmlResponse
 
       def initialize(hashed_response)
         @body = XmlParserFactory.build_parser.parse hashed_response[:ndf_dgen_by_day_response][:dwml_by_day_out]
+        validate! @body, :dwml
       end
 
       def each
@@ -45,7 +47,8 @@ module NoaaWeatherClient
           periods.shift #remove layout-key
           @time_layout_periods = [].tap do |arr|
             periods.each_slice(2) do |slice|
-              arr << TimePeriod.new(*slice)
+              name = slice.first['period-name']
+              arr << TimePeriod.new(*slice, name)
             end
           end
         end
@@ -67,6 +70,7 @@ module NoaaWeatherClient
         {
           start_time: Time.parse(period.start_time.to_s),
           end_time: Time.parse(period.end_time.to_s),
+          name: period.name,
           maximum_temperature: parameters.css('temperature[type=maximum] value')[index].text.to_f,
           minimum_temperature: parameters.css('temperature[type=minimum] value')[index].text.to_f,
           weather_summary: parameters.css('weather weather-conditions')[index]['weather-summary']
@@ -74,6 +78,7 @@ module NoaaWeatherClient
       end
 
       class Day < OpenStruct; end
+      TimePeriod = Struct.new(:start_time, :end_time, :name)
     end
   end
 end

@@ -8,6 +8,12 @@ VCR.configure do |c|
   c.hook_into :webmock # or :fakeweb
 end
 
+module Helpers
+  def load_xml_fixture(name)
+    File.read(File.expand_path(File.join('..', 'fixtures', 'xml', "#{name.to_s}.xml"), __FILE__))
+  end
+end
+
 RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
@@ -16,6 +22,7 @@ RSpec.configure do |config|
   config.order = "random"
   config.formatter = :documentation
   config.mock_with :rspec
+  config.include Helpers
 end
 
 SimpleCov.start do

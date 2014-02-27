@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!--   **********************************************************************   
+                                                                           
+       moreWeatherInformation.xsd   
+
+       Paul Hershberg            MDL                29 June 2007  
+       Red Hat Linux                                Apache Server  
+                                       
+
+      *************************************************************************   -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+   <xsd:complexType name="moreWeatherInformationType">
+      <xsd:simpleContent>
+         <xsd:extension base="xsd:anyURI">
+            <xsd:attribute name="applicable-location" type="xsd:string" use="required" />
+         </xsd:extension>
+      </xsd:simpleContent>
+   </xsd:complexType>
+
+</xsd:schema>

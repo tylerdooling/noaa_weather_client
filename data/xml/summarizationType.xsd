@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!--   **********************************************************************   
+                                                                           
+       summarizationType.xsd   
+
+       John L. Schattel          MDL                29 June 2009  
+       Red Hat Linux                                Apache Server  
+                                       
+
+      *************************************************************************   -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="summarizationType">
+       <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="none" />
+          <xsd:enumeration value="mean" />
+          <xsd:enumeration value="maximum" />
+          <xsd:enumeration value="minimum" />
+          <xsd:enumeration value="12hourly" />
+          <xsd:enumeration value="24hourly" />
+          <xsd:enumeration value="national" />
+          <xsd:enumeration value="conus" />
+          <xsd:enumeration value="alaska" />
+       </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>
