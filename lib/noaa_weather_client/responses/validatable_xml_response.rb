@@ -9,7 +9,8 @@ module NoaaWeatherClient
         Dir.chdir(SCHEMA_PATH) do
           schema_file = File.join(SCHEMA_PATH, "#{schema_name}.xsd")
           schema = Nokogiri::XML::Schema(File.read(schema_file))
-          unless (errors = schema.validate(doc)).empty?
+          errors = schema.validate(doc)
+          unless errors.empty?
             raise InvalidXmlError, "Invalid xml: #{errors.map(&:message).join("\n")}"
           end
         end
