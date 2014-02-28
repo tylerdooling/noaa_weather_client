@@ -23,7 +23,7 @@ module NoaaWeatherClient
 
       context "when the response is invalid" do
         it "raises an ArgumentError" do
-          expect { CurrentObservation.new '<invalid></invalid>' }.to raise_error(ValidatableXmlResponse::InvalidXmlError)
+          expect { CurrentObservation.new '<invalid></invalid>' }.to raise_error(Errors::InvalidXmlError)
         end
       end
 

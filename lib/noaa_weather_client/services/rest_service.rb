@@ -1,6 +1,7 @@
 require 'net/http'
 require_relative '../rest_client_factory'
 require_relative '../responses/generic_response'
+require_relative '../errors'
 
 module NoaaWeatherClient
   module RestService
@@ -9,9 +10,11 @@ module NoaaWeatherClient
       client = options.fetch(:client) { RestClientFactory.build_client(url: url) }
       request = build_request_for_action action, url, options
       response_class.new client.request(request).body
-    rescue Exception => e
-      puts e 
-      # return failure response
+    rescue Net::HTTPError,
+      Net::HTTPRetriableError,
+      Net::HTTPServerException,
+      Net::HTTPFatalError => e
+      raise Errors::CommunicationError, e.message, e.backtrace
     end
 
     # @note Much more to be done here when needed.

@@ -42,6 +42,14 @@ module NoaaWeatherClient
                                                   client: mock_client,
                                                   response_class: mock_response_class)).to eq(mock_response_class)
         end
+
+        context "when a Savon:Error occurs" do
+          it "raises a CommunicationError" do
+            allow(mock_client).to receive(:call).and_raise(Savon::Error)
+            expect { implementer.object_from_response :soap_action, :message, client: mock_client }
+              .to raise_error(Errors::CommunicationError)
+          end
+        end
       end
     end
   end
