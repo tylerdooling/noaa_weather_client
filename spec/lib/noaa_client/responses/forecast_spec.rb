@@ -5,7 +5,7 @@ module NoaaWeatherClient
   module Responses
     describe Forecast do
       let(:fake_response) { { ndf_dgen_by_day_response: { dwml_by_day_out: load_xml_fixture(:forecast) } } }
-      let(:fake_invalid_response) { { ndf_dgen_by_day_response: { dwml_by_day_out: '' } } }
+      let(:fake_invalid_response) { { ndf_dgen_by_day_response: { dwml_by_day_out: '<invalid></invalid>' } } }
       let(:forecast) { Forecast.new fake_response }
 
       it "requires a response" do
