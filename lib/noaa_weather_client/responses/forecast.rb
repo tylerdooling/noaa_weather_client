@@ -70,7 +70,7 @@ module NoaaWeatherClient
         {
           start_time: Time.parse(period.start_time.to_s),
           end_time: Time.parse(period.end_time.to_s),
-          name: period.name,
+          name: Time.parse(period.start_time.to_s).strftime("%A"),
           maximum_temperature: parameters.css('temperature[type=maximum] value')[index].text.to_f,
           minimum_temperature: parameters.css('temperature[type=minimum] value')[index].text.to_f,
           weather_summary: parameters.css('weather weather-conditions')[index]['weather-summary']

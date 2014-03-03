@@ -45,8 +45,8 @@ module NoaaWeatherClient
           expect(day.end_time).to eq(period.end_time)
         end
 
-        it "exposes name from period" do
-          expect(day.name).to eq(period.name)
+        it "exposes weekday name" do
+          expect(day.name).to eq("Monday")
         end
 
         it "fetches max temp" do
