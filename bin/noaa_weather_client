@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'noaa_weather_client'
+
+def strip_coordinates!(args)
+  coordinates = args.last(2).select { |arg| arg =~ /-?\d{1,2}\.\d{2,}/ }
+  args.pop(2) if coordinates.size == 2
+end
+
+opts = OpenStruct.new(
+  postal_code: nil,
+  features: [ :observations ],
+  coordinates: strip_coordinates!(ARGV)
+)
+
+option_parser = OptionParser.new do |options|
+  options.set_banner "Usage: noaa_weather_client [options] latitude longitude"
+
+  options.separator ""
+  options.separator "Specific options:"
+
+  options.on("-p", "--postal_code CODE", "Resolve five digit postal code to coordinate.") do |postal_code|
+    opts.postal_code = postal_code
+  end
+
+  options.on("-f", "--forecast", "Include forecast for the location.") do |forecast|
+    opts.features << :forecast
+  end
+
+  options.on_tail("-h", "--help", "You're looking at it!") do
+    $stderr.puts options
+    exit 1
+  end
+end
+option_parser.parse!
+
+
+if opts.postal_code
+  NoaaWeatherClient::CLI.postal_code_to_coordinate(opts.postal_code)
+else
+  app = NoaaWeatherClient::CLI.new(*opts.coordinates)
+  app.render(*opts.features)
+end
