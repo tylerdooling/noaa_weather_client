@@ -34,6 +34,14 @@ client.current_observations(some_lat, some_lon, stations: stations)
 # nearest_weather_station
 client.nearest_weather_station(some_lat, some_lon, stations: stations)
 
+```
+#### Filtering Weather Stations
+In my experience, the best observations tend to come from the
+ICAO(mostly airports) stations.  There are many other stations -
+typically in cities and near the coast, but the observations tend to be
+partial and intermittent.
+
+```ruby
 # filter by station type
 filter = NoaaWeatherClient::StationFilters.icao
 client.nearest_weather_station(some_lat, some_lon, stations: stations, filter: filter)
