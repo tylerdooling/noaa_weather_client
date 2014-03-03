@@ -75,6 +75,21 @@ client.forecast_by_day(34.0995, -118.414)
 client.current_observations(34.0995, -118.414)
 ```
 
+## CLI
+```bash
+$ noaa_weather_client -p 65804
+ #=> 34.0995 -118.414
+
+# current observations 
+$ noaa_weather_client 34.0995 -118.414
+
+# include 7 day forecast
+$ noaa_weather_client -f 34.0995 -118.414
+ 
+# resolve postal code and pipe args
+$ noaa_weather_client -p 90210 | xargs noaa_weather_client -f
+```
+
 ## Contributing
 Contributions are always welcome. A few notes:
 
